@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
+  id-token: write # OIDC 토큰 발급 허용
   contents: read
   pull-requests: write
 
