@@ -27,15 +27,6 @@ jobs:
           run-id: ${{ github.event.inputs.plan_run_id }}
           github-token: ${{ github.token }}
 
-      - name: Where is lockfile actually?
-        run: |
-          pwd
-          echo "=== find lock ==="
-          find "$GITHUB_WORKSPACE" -name '.terraform.lock.hcl' -print -maxdepth 6
-          echo "=== find tfplan ==="
-          find "$GITHUB_WORKSPACE" -name 'tfplan' -print -maxdepth 6
-        working-directory: /
-
       - name: Read planned commit SHA
         id: planmeta
         run: echo "sha=$(cat /tmp/terraform-artifact/plan.sha)" >> $GITHUB_OUTPUT
@@ -48,7 +39,7 @@ jobs:
 
       - name: Move artifacts to working directory
         run: |
-          cp /tmp/terraform-artifact/* .
+          cp -a /tmp/terraform-artifact/. .
 
       - name: Verify plan exists
         run: |
