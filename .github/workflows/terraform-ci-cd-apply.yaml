@@ -34,6 +34,7 @@ jobs:
           find "$GITHUB_WORKSPACE" -name '.terraform.lock.hcl' -print -maxdepth 6
           echo "=== find tfplan ==="
           find "$GITHUB_WORKSPACE" -name 'tfplan' -print -maxdepth 6
+        working-directory: /
 
       - name: Read planned commit SHA
         id: planmeta
