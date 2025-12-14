@@ -20,12 +20,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: validate-result
-          # run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ github.event.workflow_run.id }}
+          repository: ${{ github.repository }}
 
       - name: Send Slack
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_URL: ${{ github.event.workflow_run.pull_requests[0].html_url }}
         run: |
           RESULT=$(sed 's/"/\\"/g' validate.txt | head -c 3000)
 
