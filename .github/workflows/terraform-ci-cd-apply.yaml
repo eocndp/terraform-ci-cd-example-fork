@@ -39,8 +39,7 @@ jobs:
 
       - name: Move artifacts to working directory
         run: |
-          mkdir -p terraform
-          cp /tmp/terraform-artifact/* terraform/
+          cp /tmp/terraform-artifact/* .
 
       - name: Verify plan exists
         run: |
