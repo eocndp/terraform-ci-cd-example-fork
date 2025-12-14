@@ -28,6 +28,7 @@ jobs:
           name: tfplan
           path: terraform
           run-id: ${{ github.event.inputs.plan_run_id }}
+          github-token: ${{ github.token }}
 
       - name: Verify plan exists
         run: test -f tfplan
