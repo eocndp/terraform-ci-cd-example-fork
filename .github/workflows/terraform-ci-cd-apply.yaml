@@ -19,9 +19,6 @@ jobs:
       run:
         working-directory: terraform
     steps: 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Download tfplan artifact
         uses: actions/download-artifact@v4
         with:
@@ -29,6 +26,16 @@ jobs:
           path: terraform
           run-id: ${{ github.event.inputs.plan_run_id }}
           github-token: ${{ github.token }}
+
+      - name: Read planned commit SHA
+        id: planmeta
+        run: echo "sha=$(cat plan.sha)" >> $GITHUB_OUTPUT
+        working-directory: terraform
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.planmeta.outputs.sha }}
 
       - name: Verify plan exists
         run: test -f tfplan
