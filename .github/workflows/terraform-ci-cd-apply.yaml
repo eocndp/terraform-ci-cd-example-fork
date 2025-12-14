@@ -44,6 +44,7 @@ jobs:
 
       - name: Verify plan exists
         run: |
+          ls -al .
           test -f tfplan
           test -f .terraform.lock.hcl
 
